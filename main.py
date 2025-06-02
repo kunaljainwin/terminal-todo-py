@@ -1,8 +1,24 @@
 
+menu = {
+    1: "Show Todos",
+    2: "Add",
+    3: "Update",
+    4: "Remove",
+    5: "Toggle done",
+    0: "Exit"
+}
 
 def ShowMenu(title="Default TodoList Title"):
-    print("\n1.Show Todos\n2.Add\n3.Update\n4.Remove\n5.Toggle done\n0.\nExit")
-    action=int(input("Enter the number (eg. 1..5)"))
+    divider="-------------------------"
+    divLen=int((len(divider)-len(title))/2)
+    print(f"{divider[0:divLen]} {title} {divider[0:divLen]}")
+    
+    for key, value in menu.items():
+        print(f"{key}. {value}")
+        
+    print(f"{divider}\n\n\n")
+        
+    action=int(input("Enter the number (eg. 1..5) : "))
     
     #switch(action) | not used in python instead in py^3.10+ we have match,funfact it does not require explicit break
     match(action):
