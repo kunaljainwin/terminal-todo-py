@@ -1,4 +1,29 @@
 
+import json
+import os
+
+DATA_FILE = "todos.json"
+
+def load_todos():
+    if os.path.exists(DATA_FILE):
+        with open(DATA_FILE,'r') as f:# with keeps this file open for this scope only
+            try:
+                return json.load(f)
+            except json.JSONDecodeError:
+                print("Corrupted data file. Starting fresh.")
+    else:
+        print("This file does not exist")
+    
+    return []
+    
+def save_todos():
+    if todo_list:
+        try:
+            with open(DATA_FILE,'w') as f:
+                json.dump(todo_list,f,indent=2)
+        except (OSError, TypeError) as e:
+            print(f"Failed to save todos: {e}")
+
 MENU_OPTIONS = {
     1: "Show Todos",
     2: "Add",
@@ -11,19 +36,20 @@ MENU_OPTIONS = {
 def show_menu(title="My TodoList"):
     divider="-------------------------"
     divLen=int((len(divider)-len(title)-2)/2)
-    print(f"\n\n\n{divider[0:divLen]} {title} {divider[0:divLen]}")
+    print(f"\n\n{divider[0:divLen]} {title} {divider[0:divLen]}")
     
     for key, value in MENU_OPTIONS.items():
         print(f"{key}. {value}")
         
-    print(f"{divider}\n\n\n")
+    print(f"{divider}\n\n")
         
     action = get_user_choice()
     #switch(action) | not used in python instead in py^3.10+ we have match,funfact it does not require explicit break
     match(action):
         case 0:
-            print("exit")
-            exit(1)
+            save_todos()
+            print("Exiting safely... Goodbye!")
+            exit(0)
         case 1:
             show_todos()
         case 2:
@@ -36,6 +62,8 @@ def show_menu(title="My TodoList"):
             toggle_done()
         case _:
             print("Invalid input")
+            
+    save_todos()
     
 def get_user_choice()->int:
     while True:
@@ -123,6 +151,8 @@ def toggle_done():
     
 
 def start():
+    global todo_list
+    todo_list = load_todos()
     while(True):
         show_menu()
 
