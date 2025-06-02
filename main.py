@@ -39,7 +39,7 @@ MENU_OPTIONS = {
 }
 
 def show_menu(title="My TodoList"):
-    divider="-------------------------"
+    divider=f"{RESET}-------------------------"
     divLen=int((len(divider)-len(title)-2)/2)
     print(f"\n\n{divider[0:divLen]} {title} {divider[0:divLen]}")
     
@@ -89,7 +89,7 @@ def show_todos():
     print("\nYour Todo List:")
     print("-------------------")
     for idx, todo in enumerate(todo_list, start=1):
-        status = f"{GREEN}Done{RESET}" if todo.get("done", False) else "{RED}Pending{GREEN}"
+        status = f"{GREEN}Done{RESET}" if todo.get("done", False) else f"{RED}Pending{RESET}"
         print(f"{idx}. {todo['task']}  [{status}]")
     print("-------------------\n")
 #add,update remove
@@ -102,7 +102,6 @@ def add():
         print("Empty task not added.\n")
 
 def update():
-   
     # validations
     if not todo_list:
         print("Todo list is empty! Nothing to update.\n")
