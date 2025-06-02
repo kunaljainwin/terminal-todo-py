@@ -59,7 +59,7 @@ def add():
     # take input , append to list and give confirmation
     str=string(input("\nEnter the To-Do\n:"))
     # possibly some validations
-    todolist.append(str)
+    todolist.append({"task":str,"done":False})
 
 def update():
     # take index of todo which user wants to update , take input and update
@@ -68,7 +68,7 @@ def update():
     if( nIndex.isdigit() && nIndex>0 && nIndex <=len(todolist))?None:exit(1)
     
     str=string(input("\Enter the updated To-Do\n:"))
-    todolist[nIndex-1]=str
+    todolist[nIndex-1]["task"]=str
     
 # toggle done or undone
 
