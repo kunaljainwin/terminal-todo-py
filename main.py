@@ -4,6 +4,11 @@ import os
 
 DATA_FILE = "todos.json"
 
+# Colors for Text
+GREEN = "\033[92m"
+RED = "\033[91m"
+RESET = "\033[0m"
+
 def load_todos():
     if os.path.exists(DATA_FILE):
         with open(DATA_FILE,'r') as f:# with keeps this file open for this scope only
@@ -84,7 +89,7 @@ def show_todos():
     print("\nYour Todo List:")
     print("-------------------")
     for idx, todo in enumerate(todo_list, start=1):
-        status = "Done" if todo.get("done", False) else "Pending"
+        status = f"{GREEN}Done{RESET}" if todo.get("done", False) else "{RED}Pending{GREEN}"
         print(f"{idx}. {todo['task']}  [{status}]")
     print("-------------------\n")
 #add,update remove
